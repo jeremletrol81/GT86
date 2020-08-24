@@ -8,7 +8,7 @@
 //#define DEBUG_CAN 		// Comment to turn off debugging messages for CAN Send / Receive
 //#define DEBUG_MODULES	// Comment to turn off debugging messages for modules
 
-#ifdef ARDUINO_AVR_UNO
+#if defined(ARDUINO_AVR_UNO) || defined(__SAM3X8E__)
 	// Use Arduino IDE Serial
 	#define OPEN_LOG() 			Serial.begin(115200)
 	#define PRINT_STR(pArg)     Serial.print(F(pArg))	// Arduino specific optimization for strings
