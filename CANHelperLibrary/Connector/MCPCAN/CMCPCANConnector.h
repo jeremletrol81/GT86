@@ -58,7 +58,7 @@ namespace CAN
 			this->mCAN = new MCP_CAN(10) ;
 			
 			// Initialization ok ?
-			if (this->mCAN->begin(MCP_STDEXT, CAN_500KBPS, MCP_16MHZ) == CAN_OK)
+			if (this->mCAN->begin(CAN_500KBPS, MCP_16MHz) == CAN_OK)
 			{
 				// A valid setup functino to use ?
 				if (pSetupFunc)
@@ -67,7 +67,7 @@ namespace CAN
 				}
 				
 				// Back to normal
-				this->mCAN->setMode(MCP_NORMAL) ;
+//				this->mCAN->setMode(MCP_NORMAL) ;
 
 				// Succeeded !
 				return true ;
@@ -156,8 +156,7 @@ namespace CAN
 		 */
 		virtual bool ReadImpl(unsigned long& pCANId, unsigned char& pLength, unsigned char* pReadData) override
 		{
-			INT8U lExtendedFlag = 1 ;
-			return this->mCAN && this->mCAN->readMsgBuf(&pCANId, &lExtendedFlag, &pLength, pReadData) == CAN_OK ;
+			return this->mCAN && this->mCAN->readMsgBufID(&pCANId, &pLength, pReadData) == CAN_OK ;
 		}
 
 		/**
@@ -169,7 +168,7 @@ namespace CAN
 		 */
 		virtual bool SendImpl(unsigned long pCANId, unsigned char pLength, const unsigned char* pData) override
 		{
-			return this->mCAN && this->mCAN->sendMsgBuf(pCANId, pLength, const_cast<unsigned char*>(pData)) == CAN_OK ;
+			return this->mCAN && this->mCAN->sendMsgBuf(pCANId, 0, pLength, const_cast<unsigned char*>(pData)) == CAN_OK ;
 		}
 
 	protected:
