@@ -54,8 +54,8 @@ namespace CAN
 				this->Close() ;
 			}
 			
-			// Build a new MCP_CAN using CS pin 10
-			this->mCAN = new MCP_CAN(10) ;
+			// Build a new MCP_CAN using CS pin 9
+			this->mCAN = new MCP_CAN(9) ;
 			
 			// Initialization ok ?
 			if (this->mCAN->begin(CAN_500KBPS, MCP_16MHz) == CAN_OK)
